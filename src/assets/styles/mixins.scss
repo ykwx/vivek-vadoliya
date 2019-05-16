@@ -1,0 +1,46 @@
+/* ==========================================================================
+  Mixins
+========================================================================== */
+
+
+@mixin vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.vert-align {
+    @include vertical-align;
+}
+
+@mixin transition($object, $size) {
+    -webkit-transition: $object $size ease-in-out;
+    -khtml-transition:  $object $size ease-in-out;
+    -moz-transition: 	$object $size ease-in-out;
+    -ms-transition: 	$object $size ease-in-out;
+    -o-transition: 		$object $size ease-in-out;
+    transition: 		$object $size ease-in-out;
+}
+
+
+@keyframes fadeInText {
+    from { opacity: 0; top: 55%;}
+    to { opacity: 1;  top: 48%;}
+}
+
+@keyframes fadeInImage {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomInImage {
+    from { transform: scale(.98); }
+    to { transform: scale(1); }
+}
+
+@keyframes zoomHoverImage {
+    from { transform: scale(1); }
+    to { transform: scale(1.4); }
+}

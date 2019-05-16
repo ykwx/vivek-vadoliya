@@ -1,0 +1,74 @@
+/* ==========================================================================
+  Variables
+========================================================================== */
+
+
+
+/* ==========================================================================
+  Colors
+========================================================================== */
+
+
+@import url('https://fonts.googleapis.com/css?family=Libre+Franklin:400,500,700|Open+Sans:300,400|Material+Icons');
+
+
+.material-icons {
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24px;  /* Preferred icon size */
+	display: inline-block;
+	position: relative;
+	width: 1em;
+	height: 1em;
+	line-height: 1;
+	text-transform: none;
+	letter-spacing: normal;
+	word-wrap: normal;
+	white-space: nowrap;
+	direction: ltr;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	-moz-osx-font-smoothing: grayscale;
+	font-feature-settings: 'liga';
+    font-family: 'Material Icons';
+}
+
+
+
+$font_body: "Libre Franklin", "Open Sans", "Avenir", Tahoma, Arial, Helvetica, sans-serif;
+$font_material: 'Material Icons';
+
+
+/* ==========================================================================
+  Colors
+========================================================================== */
+
+$white       : #FFFFFF;
+$ghost       : #FAFAFA;
+$snow        : #F9F9F9;
+$vapor       : #F6F6F6;
+$white-smoke : #F5F5F5;
+$silver      : #EFEFEF;
+$smoke       : #EEEEEE;
+$mercury     : #E6E6E6;
+$gainsboro   : #DDDDDD;
+$iron        : #CCCCCC;
+$base        : #AAAAAA;
+$aluminum    : #999999;
+$jumbo       : #888888;
+$monsoon     : #777777;
+$steel       : #666666;
+$charcoal    : #555555;
+$tuatara     : #444444;
+$oil         : #333333;
+$jet         : #222222;
+// $black       : #000000;
+
+$black       : #171517;
+$green       : #373D31;
+$brown       : #7A5F58;
+$pink        : #D48C8F;
+$grey        : #988784;
+
+
+$max-width: 1500px;
