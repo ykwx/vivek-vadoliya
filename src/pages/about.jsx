@@ -58,11 +58,9 @@ class About extends Component {
                         <div className="full push-down black-bg">
                             <div className="wrapper">
                                 <div className="text-body">
-                                    <div className="text-block white-text">
-                                        <p>{entry.fields.body}</p>
-                                    </div>
-                                    <div className="text-block white-text">
-                                        <p>{entry.fields.bodyHindi}</p>
+                                    <div className="text-block white-text body-text">
+                                        <p className="body-text_english">{entry.fields.body}</p>
+                                        <p className="body-text_hindi">{entry.fields.bodyHindi}</p>
                                     </div>
                                 </div>
                                 <div className="text-block white-text">

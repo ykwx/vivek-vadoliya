@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Helmet from 'react-helmet'
+import { Link } from 'react-router-dom';
 import SEO from "../app/SEO";
 import Config from "../app/Config";
 import Contentful from '../app/Contentful'
@@ -16,6 +17,7 @@ class Projects extends Component {
         img: {
             alt: 'Vivek Vadoliya',
             src: undefined,
+            type: "image/jpeg",
             link: '/projects'
         }
     }
@@ -34,26 +36,36 @@ class Projects extends Component {
     setPosts = response => {
         this.setState({
             isLoaded: true,
-            entries: response.items
+            entries: response.items,
+            img: {
+                alt: 'Vivek Vadoliya',
+                src: undefined,
+                type: "image/jpeg",
+                link: "projects/" + response.items[0].fields.slug
+            }
         })
     }
 
     handleMouseOver = entry => e => {
-        let img
+        let img;
+        let type;
         console.log(entry);
 
-        if (entry.asset && entry.asset.length > 0) {
-            if (entry.asset[0].fields.media) {
-                img = entry.asset[0].fields.media.fields.file.url
-            } else {
-                img = ''
-            }
+        if (entry.heroAsset) {
+            img = entry.heroAsset.fields.media.fields.file.url
+            type = entry.heroAsset.fields.media.fields.file.contentType
+            console.log(type);
+        } else {
+            img = ''
+            type = "image/jpeg"
         }
+
 
         this.setState({
             img: {
                 alt: entry.title,
                 src: img,
+                type: type,
                 link: "/projects/" + entry.slug
             }
         });
@@ -69,18 +81,18 @@ class Projects extends Component {
         if (entries && entries.length) {
             const { entries } = this.state;
 
-            let { alt, src, link } = this.state.img;
+            let { alt, src, type, link } = this.state.img;
             if (src === undefined) {
-                src = entries[0].fields.asset[0].fields.media.fields.file.url;
+                src = entries[0].fields.heroAsset.fields.media.fields.file.url;
             }
 
-            const personal = entries.filter(item => item.fields.tag.fields.slug === 'personal');
-            const editorial = entries.filter(item => item.fields.tag.fields.slug === 'editorial-commissions');
+            const personal = entries.filter(item => item.fields.tag.fields.slug === 'overview');
+            const editorial = entries.filter(item => item.fields.tag.fields.slug === 'selected-projects');
             const commercial = entries.filter(item => item.fields.tag.fields.slug === 'commercial');
 
             return (
                 <React.Fragment>
-                    <div className="page-wrapper green-bg">
+                    <div className="page-wrapper white-bg">
                         <Helmet>
                               <title>{pageTitle} | {Config.siteTitle}</title>
                         </Helmet>
@@ -88,7 +100,7 @@ class Projects extends Component {
                             <div className="wrapper center-text">
 
                                 <ul className="article-list">
-                                    <h4>Personal</h4>
+                                    <h4>Overview</h4>
                                     {personal.map(({fields}, i) => {
                                         return (
                                             <li key={i} onMouseOver={this.handleMouseOver(fields)}>
@@ -99,7 +111,7 @@ class Projects extends Component {
                                 </ul>
 
                                 <ul className="article-list">
-                                    <h4>Editorial Commissions</h4>
+                                    <h4>Personal Projects</h4>
                                     {editorial.map(({fields}, i) => {
                                         return (
                                             <li key={i} onMouseOver={this.handleMouseOver(fields)}>
@@ -121,9 +133,12 @@ class Projects extends Component {
                             </div>
                         </div>
 
-                        <div className="half right-side full-height green-bg locked">
+                        <div className="half right-side full-height locked hide-on-mobile">
                             <div className="image-wrapper wrapper vert-align">
-                                <Image imgAlt={alt} imgSrc={src} />
+                                <Link to={link}>
+                                    {type === "image/jpeg" && (<Image imgAlt={alt} imgSrc={src} width={720} />)}
+                                    {type !== "image/jpeg" && (<span className="image-wrap"><video alt={alt} src={src} width={720} autoplay="true" muted loop/></span>)}
+                                </Link>
                             </div>
                         </div>
                     </div>

@@ -16,7 +16,7 @@ class App extends Component {
         modalContent:
             <div>
                 <h3>Vivek Vadoliya</h3>
-                <p>Drop me a line to talk about a project</p>
+                <p>Vivek Vadoliya is a British Indian documentary and portrait photographer & director. Currently he is based between London and Berlin.</p>
             </div>
     }
 

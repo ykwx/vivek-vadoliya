@@ -27,7 +27,8 @@ class Project extends Component {
             meta: [],
             seo: [],
             displayStyle: 'grid',
-            showModal: false
+            showModal: false,
+            imageIndex: 0
         };
     }
 
@@ -63,9 +64,18 @@ class Project extends Component {
         })
     }
 
+
     handleClick = val => {
         this.setState({
             displayStyle: val
+        });
+    }
+
+    toggleModal = (val, item) => {
+        const index = this.state.fields.asset.findIndex(a => a.sys.id === item.sys.id);
+        this.setState({
+            showModal: val,
+            imageIndex: index
         });
     }
 
@@ -98,7 +108,7 @@ class Project extends Component {
                         return (
                             <div className={`image-block full-height ${item.fields.backgroundColour}-bg ${item.fields.width} ${key === 0 ? 'first' : '' } ${arr.length - 1 === key ? 'last' : '' }`} key={key}>
                                 <div className="image-wrapper vert-align">
-                                    <Image imgAlt={item.title} imgSrc={item.fields.media.fields.file.url} />
+                                    <Image imgAlt={item.fields.title} imgSrc={item.fields.media.fields.file.url} width={720}/>
                                 </div>
                                 <div className="image-count center-text">{key + 1} / {fields.asset.length}</div>
 
@@ -111,7 +121,7 @@ class Project extends Component {
                         return (
                             <div className={`image-block full-height ${item.fields.backgroundColour}-bg ${item.fields.width} ${key === 0 ? 'first' : '' } ${arr.length - 1 === key ? 'last' : '' }`} key={key}>
                                 <div className="image-wrapper vert-align">
-                                    <video alt={item.title} src={item.fields.media.fields.file.url} autoplay="true" muted loop/>
+                                    <video alt={item.fields.title} src={item.fields.media.fields.file.url} autoplay="true" muted loop/>
                                 </div>
                                 <div className="image-count center-text">{key + 1} / {fields.asset.length}</div>
                                 <div className="arrow arrow-left" onClick={() => this.handleMove(item.width, 'left')}></div>
@@ -120,10 +130,11 @@ class Project extends Component {
                         );
                     } else {
                         // Video link
+                        const videoSrc = "https://player.vimeo.com/video" + item.fields.videoLink.split("vimeo.com")[1];
                         return (
                             <div className={`image-block full-height ${item.fields.backgroundColour}-bg ${item.fields.width} ${key === 0 ? 'first' : '' } ${arr.length - 1 === key ? 'last' : '' }`} key={key}>
                                 <div className="image-wrapper vert-align">
-                                    <iframe alt={item.title} src={item.videoLink} autoplay="true" muted loop/>
+                                    <iframe alt={item.fields.title} src={videoSrc} />
                                 </div>
                                 <div className="image-count center-text">{key + 1} / {fields.asset.length}</div>
                                 <div className="arrow arrow-left" onClick={() => this.handleMove(item.width, 'left')}></div>
@@ -147,22 +158,23 @@ class Project extends Component {
                 if (item.fields) {
                     if (item.fields.media && item.fields.media.fields.file.contentType === "image/jpeg") {
                         return (
-                            <div className="image-block" key={key}>
-                                <Image imgAlt={item.title} imgSrc={item.fields.media.fields.file.url} />
+                            <div className="image-block click" key={key} onClick={() => this.toggleModal(true, item)}>
+                                <Image imgAlt={item.title} imgSrc={item.fields.media.fields.file.url} width={320} />
                             </div>
                         );
                     } else if (item.fields.media && item.fields.media.fields.file.contentType !== "image/jpeg") {
                         // Video
                         return (
-                            <div className="image-block" key={key}>
-                                <video alt={item.title} src={item.fields.media.fields.file.url} autoplay="true" muted loop/>
+                            <div className="image-block click" key={key} onClick={() => this.toggleModal(true, item)}>
+                                <span className="image-wrap"><video alt={item.title} src={item.fields.media.fields.file.url} autoplay="true" muted loop/></span>
                             </div>
                         );
                     } else {
                         // Video link
+                        const videoSrc = "https://player.vimeo.com/video" + item.fields.videoLink.split("vimeo.com")[1];
                         return (
-                            <div className="image-block" key={key}>
-                                <iframe alt={item.title} src={item.videoLink} autoplay="true" muted loop/>
+                            <div className="image-block click" key={key} onClick={() => this.toggleModal(true, item)}>
+                                <span className="image-wrap"><iframe alt={item.fields.title} src={videoSrc} /></span>
                             </div>
                         );
                     }
@@ -181,35 +193,34 @@ class Project extends Component {
                 {!isLoaded && (<Loader />)}
                 {
                   isLoaded && (
-                    <article>
-                        <ProjectToggle
-                            displayStyle={displayStyle}
-                            onSwitch={this.handleClick}
-                        />
 
+                      <article>
+                            <ImageModal
+                                modalContent={fields}
+                                imageIndex={this.state.imageIndex}
+                                showModal={this.state.showModal}
+                                toggleModal={this.toggleModal}
+                            />
 
-
-                        <div className={`post ${displayStyle}`}>
-                            <div className="text-wrapper half full-height">
-                                <div className="text-container">
-                                    <div className="text-block">
-                                        <h1>{fields.title}</h1>
-                                        <Markdown source={fields.body} />
+                            <div className={`post ${displayStyle}`}>
+                                <div className="text-wrapper half full-height">
+                                    <div className="text-container">
+                                        <div className="text-block">
+                                            <h1>{fields.title}</h1>
+                                            <Markdown source={fields.body} />
+                                        </div>
                                     </div>
                                 </div>
+
+                                {assetSlide}
+
+                                <div className="grid-wrapper">
+                                    {assetGrid}
+                                </div>
+
                             </div>
-
-                            {assetSlide}
-
-                            <div className="grid-wrapper">
-                                {assetGrid}
-                            </div>
-
-                        </div>
-                    </article>
-
-
-                  )
+                        </article>
+                    )
                 }
                 </React.Fragment>
           )

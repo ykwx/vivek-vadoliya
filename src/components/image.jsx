@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Image = ({imgAlt, imgSrc, handleClick}) => {
+const Image = ({imgAlt, imgSrc, handleClick, width}) => {
 
-    const imageSize = "?fm=jpg&fl=progressive&w=720";
+    const imageSize = "?fm=jpg&fl=progressive&w=" + width;
     const imgPath = imgSrc + imageSize;
 
     return (
-        <img alt={imgAlt} src={imgPath} loading="lazy" />
+        <span className="image-wrap"><img alt={imgAlt} src={imgPath} loading="lazy" /></span>
     );
 
 };
