@@ -45,6 +45,20 @@
     to { transform: scale(1.4); }
 }
 
+@keyframes moveUp {
+    from { -webkit-transform: translate3d(0,5px,0);
+    transform: translate3d(0,5px,0); }
+    to {-webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);}
+}
+
+@keyframes moveUpMore {
+    from { -webkit-transform: translate3d(0,20px,0);
+    transform: translate3d(0,20px,0); }
+    to {-webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);}
+}
+
 
 @mixin breakpoint($media) {
 

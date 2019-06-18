@@ -167,13 +167,8 @@ a {
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    .image-wrap {
-        img, video {
-            opacity: 0;
-            transform: scale(.9);
-            animation: fadeInImage .7s .7s forwards ease-in-out, zoomInImage .3s 0s forwards ease-in-out;
-        }
-    }
+    opacity: 0;
+    animation: fadeInImage 1.2s .7s forwards ease-in-out;
     img, video {
         max-height: 80vh;
         max-width: 80%;
@@ -188,8 +183,16 @@ a {
     }
 }
 
-
-
+.image-wrap {
+    -webkit-transform: translate3d(0,5px,0);
+    transform: translate3d(0,5px,0);
+    opacity: 0;
+    animation: fadeInImage .7s .7s forwards ease-in-out, moveUp .5s 1.4s forwards ease-in-out;
+    img, video {
+        opacity: 0;
+        animation: fadeInImage .7s 2s forwards ease-in-out;
+    }
+}
 
 
 
@@ -212,6 +215,8 @@ nav.navigation {
     font-size: 1.25em;
     ul {
         padding: 0;
+        opacity: 0;
+        animation: fadeInImage 1s .2s forwards ease-in-out;
     }
     li {
         display: inline-block;
@@ -249,7 +254,7 @@ nav.navigation {
         top: 100vh;
         // transform: scale(0);
         opacity: 0;
-        transition: top .3s ease-in-out, opacity .5s .2s ease-in-out, background-color .5s .3s ease-in-out;
+        transition: opacity .5s .2s ease-in-out, background-color .5s .3s ease-in-out;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -278,7 +283,7 @@ nav.navigation {
         }
         .overlay {
             opacity: 1;
-            transition-delay: 0s;
+            transition-delay: .2s;
         }
     }
     &.md-hide {
@@ -425,6 +430,10 @@ nav.navigation {
     top: 50px;
     z-index: 10;
     box-sizing: border-box;
+    -webkit-transform: translate3d(0,5px,0);
+    transform: translate3d(0,5px,0);
+    opacity: 0;
+    animation: fadeInImage .5s .5s forwards ease-in-out, moveUp .5s .8s forwards ease-in-out;
     h4 {
         display: inline-block;
         margin: 30px 50px 30px 10px;
@@ -433,6 +442,10 @@ nav.navigation {
 
 .text-block {
     margin-bottom: 50px;
+    -webkit-transform: translate3d(0,20px,0);
+    transform: translate3d(0,20px,0);
+    opacity: 0;
+    animation: fadeInImage .5s .5s forwards ease-in-out, moveUpMore .5s .8s forwards ease-in-out;
     p {
         font-size: 1.6em;
         margin-top: 10px;
@@ -459,7 +472,10 @@ nav.navigation {
   display: grid;
   grid-column: 1;
   position: relative;
-
+  -webkit-transform: translate3d(0,20px,0);
+  transform: translate3d(0,20px,0);
+  opacity: 0;
+  animation: fadeInImage .5s .5s forwards ease-in-out, moveUpMore .5s .8s forwards ease-in-out;
   h4 {
       color: $white;
       margin: 5px 0;
@@ -641,6 +657,8 @@ nav.navigation {
                 height: auto;
                 position: relative;
                 border: 0;
+                opacity: 0;
+
             }
             &:hover {
                 -webkit-transform: translate3d(0,-5px,0);
