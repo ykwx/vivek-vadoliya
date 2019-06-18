@@ -8,6 +8,7 @@ import Contentful from '../app/Contentful'
 import ProjectItem from '../components/projectItem'
 import Image from '../components/image'
 import Loader from '../components/common/loader'
+import Navigation from '../components/common/navigation'
 
 
 class Projects extends Component {
@@ -49,7 +50,6 @@ class Projects extends Component {
     handleMouseOver = entry => e => {
         let img;
         let type;
-        console.log(entry);
 
         if (entry.heroAsset) {
             img = entry.heroAsset.fields.media.fields.file.url
@@ -96,6 +96,7 @@ class Projects extends Component {
                         <Helmet>
                               <title>{pageTitle} | {Config.siteTitle}</title>
                         </Helmet>
+                        <Navigation />
                         <div className="half left-side black-bg push-down">
                             <div className="wrapper center-text">
 
@@ -141,6 +142,8 @@ class Projects extends Component {
                                 </Link>
                             </div>
                         </div>
+
+
                     </div>
                 </React.Fragment>
             );

@@ -5,6 +5,8 @@ import Config from "../app/Config";
 import Contentful from '../app/Contentful'
 import * as Markdown from 'react-markdown'
 import Loader from '../components/common/loader'
+import Navigation from '../components/common/navigation'
+
 
 class About extends Component {
 
@@ -41,10 +43,11 @@ class About extends Component {
             <Helmet>
                   <title>{pageTitle} | {Config.siteTitle}</title>
             </Helmet>
-                <SEO path={"/about"} content="" />
-                {!isLoaded && (<Loader />)}
-                {
-                  isLoaded && (
+            <SEO path={"/about"} content="" />
+            {!isLoaded && (<Loader />)}
+            {isLoaded && (
+                <React.Fragment>
+                    <Navigation />
                     <div className="about-page page-wrapper pink-bg">
                         <div className="contact-row white-text">
                             <h4>
@@ -65,25 +68,25 @@ class About extends Component {
                                 </div>
                                 <div className="text-block white-text">
                                     <h4>Clients</h4>
-                                    <p>{entry.fields.clients}</p>
+                                    <Markdown source={entry.fields.clients} />
                                 </div>
                                 <div className="text-block white-text">
                                     <h4>Publications</h4>
-                                    <p>{entry.fields.publications}</p>
+                                    <Markdown source={entry.fields.publications} />
                                 </div>
                                 <div className="text-block white-text">
                                     <h4>Shows</h4>
-                                    <p>{entry.fields.shows}</p>
+                                    <Markdown source={entry.fields.shows} />
                                 </div>
                                 <div className="text-block white-text">
                                     <h4>Press</h4>
-                                    <p>{entry.fields.press}</p>
+                                    <Markdown source={entry.fields.press} />
                                 </div>
                             </div>
                         </div>
                     </div>
-                )
-            }
+                </React.Fragment>
+            )}
             </React.Fragment>
         );
     }

@@ -11,6 +11,7 @@ import ProjectArrows from '../components/projectArrows'
 import Image from '../components/image'
 import Loader from '../components/common/loader'
 import ImageModal from '../components/imageModal'
+import Navigation from '../components/common/navigation'
 
 
 class Project extends Component {
@@ -28,6 +29,8 @@ class Project extends Component {
             seo: [],
             displayStyle: 'grid',
             showModal: false,
+            overviewProject: false,
+            assetLength: 0,
             imageIndex: 0
         };
     }
@@ -47,13 +50,25 @@ class Project extends Component {
     setEntry = response => {
         const data = response.items[0];
 
-        let metaImage = ""
+        let metaImage = "";
+        let overviewProjectVal, assetLengthVal;
         if (data.fields.asset && data.fields.asset[0].fields.media) {
             let metaImage = data.fields.asset[0].fields.media.fields.file.url
+            assetLengthVal = data.fields.asset.length;
+        } else {
+            assetLengthVal = 0;
+        }
+
+        if (data.fields.tag.fields.slug === 'overview') {
+            overviewProjectVal = true;
+        } else {
+            overviewProjectVal = false;
         }
 
         this.setState({
             isLoaded: true,
+            overviewProject: overviewProjectVal,
+            assetLength: assetLengthVal,
             fields: data.fields,
             meta: data.sys,
             seo: {
@@ -97,9 +112,9 @@ class Project extends Component {
     }
 
     render() {
-        const { fields, isLoaded, displayStyle, showModal } = this.state;
-        let assetSlide
+        const { fields, isLoaded, displayStyle, showModal, overviewProject, assetLength } = this.state;
 
+        let assetSlide
         if (fields && fields.asset != null && this.state.displayStyle == 'slide') {
             assetSlide = fields.asset.map((item, key, arr) => {
                 if (item.fields) {
@@ -121,7 +136,7 @@ class Project extends Component {
                         return (
                             <div className={`image-block full-height ${item.fields.backgroundColour}-bg ${item.fields.width} ${key === 0 ? 'first' : '' } ${arr.length - 1 === key ? 'last' : '' }`} key={key}>
                                 <div className="image-wrapper vert-align">
-                                    <video alt={item.fields.title} src={item.fields.media.fields.file.url} autoplay="true" muted loop/>
+                                    <video alt={item.fields.title} src={item.fields.media.fields.file.url} autoPlay={true} muted loop/>
                                 </div>
                                 <div className="image-count center-text">{key + 1} / {fields.asset.length}</div>
                                 <div className="arrow arrow-left" onClick={() => this.handleMove(item.width, 'left')}></div>
@@ -157,16 +172,22 @@ class Project extends Component {
             assetGrid = fields.asset.map((item, key) => {
                 if (item.fields) {
                     if (item.fields.media && item.fields.media.fields.file.contentType === "image/jpeg") {
+                        let width;
+                        if (this.state.assetLength == 1) {
+                            width = 920;
+                        } else {
+                            width = 320;
+                        }
                         return (
                             <div className="image-block click" key={key} onClick={() => this.toggleModal(true, item)}>
-                                <Image imgAlt={item.title} imgSrc={item.fields.media.fields.file.url} width={320} />
+                                <Image imgAlt={item.title} imgSrc={item.fields.media.fields.file.url} width={width} />
                             </div>
                         );
                     } else if (item.fields.media && item.fields.media.fields.file.contentType !== "image/jpeg") {
                         // Video
                         return (
                             <div className="image-block click" key={key} onClick={() => this.toggleModal(true, item)}>
-                                <span className="image-wrap"><video alt={item.title} src={item.fields.media.fields.file.url} autoplay="true" muted loop/></span>
+                                <span className="image-wrap"><video alt={item.title} src={item.fields.media.fields.file.url} autoPlay={true} muted loop/></span>
                             </div>
                         );
                     } else {
@@ -191,10 +212,10 @@ class Project extends Component {
             <React.Fragment>
                 <SEO path={`/work/${fields.slug}`} content={this.state.seo} />
                 {!isLoaded && (<Loader />)}
-                {
-                  isLoaded && (
-
-                      <article>
+                {isLoaded && (
+                    <React.Fragment>
+                        <Navigation />
+                        <article>
                             <ImageModal
                                 modalContent={fields}
                                 imageIndex={this.state.imageIndex}
@@ -203,26 +224,28 @@ class Project extends Component {
                             />
 
                             <div className={`post ${displayStyle}`}>
-                                <div className="text-wrapper half full-height">
-                                    <div className="text-container">
-                                        <div className="text-block">
-                                            <h1>{fields.title}</h1>
-                                            <Markdown source={fields.body} />
+                                {!overviewProject &&
+                                    <div className="text-wrapper half full-height">
+                                        <div className="text-container">
+                                            <div className="text-block">
+                                                <h1>{fields.title}</h1>
+                                                <Markdown source={fields.body} />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                }
 
                                 {assetSlide}
 
-                                <div className="grid-wrapper">
+                                <div className={`grid-wrapper ${overviewProject ? 'full' : 'half' } ${assetLength == 1 ? "single-asset" : "multi-asset"} ${assetLength > 9 ? "not-fixed" : ""}`}>
                                     {assetGrid}
                                 </div>
 
                             </div>
                         </article>
-                    )
-                }
-                </React.Fragment>
+                    </React.Fragment>
+                )}
+            </React.Fragment>
           )
     }
 

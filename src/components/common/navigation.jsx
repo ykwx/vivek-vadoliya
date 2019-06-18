@@ -16,9 +16,7 @@ const Navigation = (props) => {
                     <Emoji
                         symbol="✌🏾"
                         label="Info"
-                        toggleModal={props.toggleModal}
                     />
-
                 </li>
             </ul>
         </nav>

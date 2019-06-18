@@ -6,7 +6,10 @@ const Image = ({imgAlt, imgSrc, handleClick, width}) => {
     const imgPath = imgSrc + imageSize;
 
     return (
-        <span className="image-wrap"><img alt={imgAlt} src={imgPath} loading="lazy" /></span>
+
+        <span className="image-wrap">
+            <img alt={imgAlt} src={imgPath} loading="lazy" />
+        </span>
     );
 
 };

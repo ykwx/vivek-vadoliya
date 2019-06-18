@@ -138,6 +138,11 @@ a {
 
 .full-height {
     height: 100vh;
+    .image-wrap {
+        img, video {
+            animation: fadeInImage .7s 0s forwards ease-in-out!important;
+        }
+    }
 }
 
 .right-side.locked {
@@ -162,12 +167,20 @@ a {
     align-items: center;
     justify-content: center;
     margin: 0 auto;
+    .image-wrap {
+        img, video {
+            opacity: 0;
+            transform: scale(.9);
+            animation: fadeInImage .7s .7s forwards ease-in-out, zoomInImage .3s 0s forwards ease-in-out;
+        }
+    }
     img, video {
         max-height: 80vh;
         max-width: 80%;
         object-fit: contain!important;
         display: block;
         margin: 0 auto;
+        position: relative;
         transition: all .4s cubic-bezier(.25,.01,.25,1);
         &:hover {
             margin-bottom: 20px;
@@ -176,13 +189,7 @@ a {
 }
 
 
-.image-wrap {
-    img, video {
-        opacity: 0;
-        transform: scale(.9);
-        animation: fadeInImage .7s 0s forwards ease-in-out, zoomInImage .3s 0s forwards ease-in-out;
-    }
-}
+
 
 
 
@@ -215,7 +222,7 @@ nav.navigation {
             color: $aluminum;
             font-size: 13px;
             &.active {
-                color: $white;
+                color: $oil;
             }
         }
         .emoji {
@@ -242,7 +249,7 @@ nav.navigation {
         top: 100vh;
         // transform: scale(0);
         opacity: 0;
-        transition: top .3s ease-in-out, opacity .5s .5s ease-in-out;
+        transition: top .3s ease-in-out, opacity .5s .2s ease-in-out, background-color .5s .3s ease-in-out;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -294,7 +301,6 @@ nav.navigation {
         left: 0;
         display: flex;
         align-items: center;
-        cursor: url('../images/hand.png'), auto;
         .image-wrap {
             display: flex;
         }
@@ -327,6 +333,17 @@ nav.navigation {
 
         &.white-bg {
             color: $black;
+        }
+        .half {
+            position: absolute;
+            &.forwards {
+                right: 0;
+                cursor: url('../images/right.png'), auto;
+            }
+            &.backwards {
+                left: 0;
+                cursor: url('../images/left.png'), auto;
+            }
         }
     }
 }
@@ -419,6 +436,9 @@ nav.navigation {
     p {
         font-size: 1.6em;
         margin-top: 10px;
+        a {
+            text-decoration: underline;
+        }
     }
     h4 {
         margin: 0;
@@ -438,6 +458,8 @@ nav.navigation {
   list-style: none;
   display: grid;
   grid-column: 1;
+  position: relative;
+
   h4 {
       color: $white;
       margin: 5px 0;
@@ -446,6 +468,13 @@ nav.navigation {
       color: $white;
       font-size: 1.2em;
       margin: 0 0 5px;
+  }
+  li {
+      transition: all .3s cubic-bezier(.25,.01,.25,1);
+      &:hover {
+          -webkit-transform: translate3d(0,-5px,0);
+          transform: translate3d(0,-5px,0);
+      }
   }
 }
 
@@ -494,7 +523,7 @@ nav.navigation {
             // flex-direction: column;
             padding: 0 20px;
             .text-block {
-                padding: 25vh 50px 100px;
+                padding: 20vh 50px 100px;
                 box-sizing: border-box;
                 h1 {
                     font-family: "Cormorant Garamond", "Crimson Text", serif;
@@ -544,10 +573,56 @@ nav.navigation {
             position: fixed;
         }
         .grid-wrapper {
-            padding: 60px 10px 0;
+            padding: 60px 30px 60px 10px;
             margin-left: 50vw;
             min-height: 100vh;
             box-sizing: border-box;
+            &.full {
+                margin-left: 0;
+                width: 100vw;
+            }
+            &.half {
+                width: 50vw;
+            }
+            &.single-asset {
+                display: flex;
+                flex-direction: column;
+                vertical-align: middle;
+                justify-content: center;
+                .image-block {
+                    width: auto;
+                    video, img, iframe {
+                        width: 100%;
+                    }
+                }
+                &.full {
+                    video, iframe, img {
+                        max-height: 80vh;
+                        max-width: 920px;
+                        width: 100%;
+                        margin: 0 auto;
+                        object-fit: contain;
+                    }
+                }
+            }
+            &.multi-asset {
+                columns: 4;
+                column-gap: 5px;
+                .image-block {
+                    box-sizing: border-box;
+                    width: auto;
+                    img, video {
+                        width: 100%;
+                    }
+                }
+                &.full {
+                    columns: 8;
+                }
+            }
+            &.not-fixed {
+                position: relative;
+                // margin-left: 0;
+            }
         }
         .image-block {
             width: 120px;

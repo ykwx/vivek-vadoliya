@@ -1,14 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Emoji = props => (
-    <span
+    <Link
         className="emoji click"
         role="img"
         aria-label={props.label ? props.label : ""}
         aria-hidden={props.label ? "false" : "true"}
-        onClick={() => props.toggleModal(true)}
+        to="/"
     >
         {props.symbol}
-    </span>
+    </Link>
 );
 export default Emoji;

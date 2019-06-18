@@ -27,7 +27,6 @@ class ImageModal extends Component {
             videoUrl: videoUrl,
             isLoaded: true
         });
-        console.log("loaded", this.state);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -48,8 +47,6 @@ class ImageModal extends Component {
                 isLoaded: true
             });
         }
-
-        console.log("reloaded", this.state);
     }
 
     getVideoUrl = (string) => {
@@ -57,7 +54,7 @@ class ImageModal extends Component {
         return videoUrl = "https://player.vimeo.com/video" + string.split("vimeo.com")[1] + "?title=0&byline=0&portrait=0";
     }
 
-    toggleIndex = (item) => {
+    toggleIndex = (item, dir) => {
         const {modalContent} = this.props;
         const index = modalContent.asset.findIndex(a => a.sys.id === item.sys.id);
         this.setState({
@@ -65,17 +62,29 @@ class ImageModal extends Component {
             isLoaded: false
         });
 
+        // Which way are we going?
+        let nextAsset, nextAssetVal;
+        if (dir == "backwards") {
+            nextAssetVal = index - 1;
+            nextAsset = modalContent.asset[nextAssetVal]
+        } else {
+            nextAssetVal = index + 1
+            nextAsset = modalContent.asset[nextAssetVal]
+        }
+
+        console.log(nextAssetVal, modalContent.asset.length);
+
         // Click to see next image or loop back to start
-        if (index + 1 < modalContent.asset.length) {
+        if (nextAssetVal > 0 && nextAssetVal < modalContent.asset.length) {
             let type, videoUrl;
-            if (modalContent.asset[index + 1].fields.videoLink !== undefined) {
+            if (nextAsset.fields.videoLink !== undefined) {
                 type = "video";
-                videoUrl = this.getVideoUrl(modalContent.asset[index + 1].fields.videoLink);
+                videoUrl = this.getVideoUrl(nextAsset.fields.videoLink);
             } else {
                 type = "image";
             }
             this.setState({
-                item: modalContent.asset[index + 1],
+                item: nextAsset,
                 type: type,
                 videoUrl: videoUrl,
                 isLoaded: true
@@ -102,16 +111,17 @@ class ImageModal extends Component {
 
         const {showModal, modalContent, imageIndex, toggleModal} = this.props;
         const {item, type, videoUrl, isLoaded} = this.state;
-        console.log("fired", this.state);
         return (
             <React.Fragment>
                 {!isLoaded && (<Loader />)}
                 {isLoaded && (
                     <div className={showModal === true ? "md-show modal-wrapper modal-wrapper-image" : "md-hide modal-wrapper"}>
-                        <div className={`modal ${item.fields.backgroundColour}-bg`} onClick={() => this.toggleIndex(item)}>
+                        <div className={`modal ${item.fields.backgroundColour}-bg`}>
                             <i className="material-icons close-trigger" onClick={() => toggleModal(false, item)}>close</i>
                             {type === "image" && (<Image imgAlt={item.fields.title} imgSrc={item.fields.media.fields.file.url} width={1200} />)}
                             {type !== "image" && (<div className="iframe-container"><iframe src={videoUrl}></iframe></div>)}
+                            <div className="half forwards" onClick={() => this.toggleIndex(item, "forwards")}></div>
+                            <div className="half backwards" onClick={() => this.toggleIndex(item, "backwards")}></div>
                         </div>
                         <div className="overlay" onClick={() => toggleModal(false, item)}></div>
                     </div>

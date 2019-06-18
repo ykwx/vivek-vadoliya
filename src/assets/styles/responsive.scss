@@ -61,8 +61,14 @@
          .grid-wrapper {
              margin: 0!important;
              float: left;
-             width: 100%;
-             padding: 0px 10px 50px!important;
+             width: 100%!important;
+             min-height: auto!important;
+             position: relative!important;
+             display: block!important;
+             padding: 50px 10px!important;
+             &.multi-asset {
+                 columns: 2!important;
+             }
              .image-block {
                  width: 100%;
                  box-sizing: border-box;
