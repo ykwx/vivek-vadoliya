@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import Helmet from 'react-helmet'
+import MetaTags from 'react-meta-tags';
 import SEO from "../app/SEO";
 import Config from "../app/Config";
 import Contentful from '../app/Contentful'
 import Image from '../components/image'
 import HomeCanvas from '../components/homeCanvas'
-import Loader from '../components/common/loader'
+import Loader from '../components/loader'
 
 class Home extends Component {
 
@@ -40,9 +40,12 @@ class Home extends Component {
 
         return (
             <React.Fragment>
-                <Helmet>
-                      <title>{Config.siteTitle}</title>
-                </Helmet>
+                <MetaTags>
+                    <title>{Config.siteTitle}</title>
+                    <meta name="description" content={Config.siteTitle} />
+                    <meta property="og:title" content={Config.siteTitle} />
+                    <meta property="og:image" content='../assets/images/meta-img.jpg' />
+                </MetaTags>
                 <SEO path={"/about"} content="" />
                 <div className="page-wrapper">
                     <Link to="/projects">

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Helmet from 'react-helmet'
+import MetaTags from 'react-meta-tags';
 import { Link } from 'react-router-dom';
 import SEO from "../app/SEO";
 import Config from "../app/Config";
@@ -7,8 +7,8 @@ import Contentful from '../app/Contentful'
 
 import ProjectItem from '../components/projectItem'
 import Image from '../components/image'
-import Loader from '../components/common/loader'
-import Navigation from '../components/common/navigation'
+import Loader from '../components/loader'
+import Navigation from '../components/navigation'
 
 
 class Projects extends Component {
@@ -54,7 +54,6 @@ class Projects extends Component {
         if (entry.heroAsset) {
             img = entry.heroAsset.fields.media.fields.file.url
             type = entry.heroAsset.fields.media.fields.file.contentType
-            console.log(type);
         } else {
             img = ''
             type = "image/jpeg"
@@ -93,9 +92,12 @@ class Projects extends Component {
             return (
                 <React.Fragment>
                     <div className="page-wrapper white-bg">
-                        <Helmet>
-                              <title>{pageTitle} | {Config.siteTitle}</title>
-                        </Helmet>
+                        <MetaTags>
+                            <title>{pageTitle} | {Config.siteTitle}</title>
+                            <meta name="description" content={Config.siteTitle} />
+                            <meta property="og:title" content={Config.siteTitle} />
+                            <meta property="og:image" content='../assets/images/meta-img.jpg' />
+                        </MetaTags>
                         <Navigation />
                         <div className="half left-side black-bg push-down">
                             <div className="wrapper center-text">

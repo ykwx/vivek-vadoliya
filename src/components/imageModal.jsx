@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Image from './image'
-import Loader from './common/loader'
+import Loader from './loader'
 
 class ImageModal extends Component {
 

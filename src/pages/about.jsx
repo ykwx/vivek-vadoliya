@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import Helmet from 'react-helmet'
+import MetaTags from 'react-meta-tags';
 import SEO from "../app/SEO";
 import Config from "../app/Config";
 import Contentful from '../app/Contentful'
 import * as Markdown from 'react-markdown'
-import Loader from '../components/common/loader'
-import Navigation from '../components/common/navigation'
+import Loader from '../components/loader'
+import Navigation from '../components/navigation'
 
 
 class About extends Component {
@@ -40,9 +40,12 @@ class About extends Component {
 
         return (
             <React.Fragment>
-            <Helmet>
-                  <title>{pageTitle} | {Config.siteTitle}</title>
-            </Helmet>
+            <MetaTags>
+                <title>{pageTitle} | {Config.siteTitle}</title>
+                <meta name="description" content={Config.siteTitle} />
+                <meta property="og:title" content={Config.siteTitle} />
+                <meta property="og:image" content='../assets/images/meta-img.jpg' />
+            </MetaTags>
             <SEO path={"/about"} content="" />
             {!isLoaded && (<Loader />)}
             {isLoaded && (

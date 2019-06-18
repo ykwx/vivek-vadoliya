@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import Helmet from 'react-helmet'
+import MetaTags from 'react-meta-tags';
 import SEO from "../app/SEO";
 import Config from "../app/Config";
 import Contentful from '../app/Contentful'
 
 import * as Markdown from 'react-markdown'
 
-import ProjectToggle from '../components/projectToggle'
-import ProjectArrows from '../components/projectArrows'
 import Image from '../components/image'
-import Loader from '../components/common/loader'
+import Loader from '../components/loader'
 import ImageModal from '../components/imageModal'
-import Navigation from '../components/common/navigation'
+import Navigation from '../components/navigation'
 
 
 class Project extends Component {
@@ -27,7 +25,6 @@ class Project extends Component {
             fields: [],
             meta: [],
             seo: [],
-            displayStyle: 'grid',
             showModal: false,
             overviewProject: false,
             assetLength: 0,
@@ -80,12 +77,6 @@ class Project extends Component {
     }
 
 
-    handleClick = val => {
-        this.setState({
-            displayStyle: val
-        });
-    }
-
     toggleModal = (val, item) => {
         const index = this.state.fields.asset.findIndex(a => a.sys.id === item.sys.id);
         this.setState({
@@ -112,64 +103,11 @@ class Project extends Component {
     }
 
     render() {
-        const { fields, isLoaded, displayStyle, showModal, overviewProject, assetLength } = this.state;
-
-        let assetSlide
-        if (fields && fields.asset != null && this.state.displayStyle == 'slide') {
-            assetSlide = fields.asset.map((item, key, arr) => {
-                if (item.fields) {
-                    if (item.fields.media && item.fields.media.fields.file.contentType === "image/jpeg") {
-                        // Image
-                        return (
-                            <div className={`image-block full-height ${item.fields.backgroundColour}-bg ${item.fields.width} ${key === 0 ? 'first' : '' } ${arr.length - 1 === key ? 'last' : '' }`} key={key}>
-                                <div className="image-wrapper vert-align">
-                                    <Image imgAlt={item.fields.title} imgSrc={item.fields.media.fields.file.url} width={720}/>
-                                </div>
-                                <div className="image-count center-text">{key + 1} / {fields.asset.length}</div>
-
-                                <div className="arrow arrow-left" onClick={() => this.handleMove(item.width, 'left')}></div>
-                                <div className="arrow arrow-right" onClick={() => this.handleMove(item.width, 'right')}></div>
-                            </div>
-                        );
-                    } else if (item.fields.media && item.fields.media.fields.file.contentType != "image/jpeg") {
-                        // Video
-                        return (
-                            <div className={`image-block full-height ${item.fields.backgroundColour}-bg ${item.fields.width} ${key === 0 ? 'first' : '' } ${arr.length - 1 === key ? 'last' : '' }`} key={key}>
-                                <div className="image-wrapper vert-align">
-                                    <video alt={item.fields.title} src={item.fields.media.fields.file.url} autoPlay={true} muted loop/>
-                                </div>
-                                <div className="image-count center-text">{key + 1} / {fields.asset.length}</div>
-                                <div className="arrow arrow-left" onClick={() => this.handleMove(item.width, 'left')}></div>
-                                <div className="arrow arrow-right" onClick={() => this.handleMove(item.width, 'right')}></div>
-                            </div>
-                        );
-                    } else {
-                        // Video link
-                        const videoSrc = "https://player.vimeo.com/video" + item.fields.videoLink.split("vimeo.com")[1];
-                        return (
-                            <div className={`image-block full-height ${item.fields.backgroundColour}-bg ${item.fields.width} ${key === 0 ? 'first' : '' } ${arr.length - 1 === key ? 'last' : '' }`} key={key}>
-                                <div className="image-wrapper vert-align">
-                                    <iframe alt={item.fields.title} src={videoSrc} />
-                                </div>
-                                <div className="image-count center-text">{key + 1} / {fields.asset.length}</div>
-                                <div className="arrow arrow-left" onClick={() => this.handleMove(item.width, 'left')}></div>
-                                <div className="arrow arrow-right" onClick={() => this.handleMove(item.width, 'right')}></div>
-                            </div>
-                        );
-                    }
-                } else {
-                    return null;
-                }
-
-            });
-
-        } else {
-            assetSlide = null
-        }
-
-        let assetGrid
-        if (fields && fields.asset != null && this.state.displayStyle == 'grid') {
-            assetGrid = fields.asset.map((item, key) => {
+        const { fields, isLoaded, showModal, overviewProject, assetLength } = this.state;
+        console.log(fields);
+        let assets
+        if (fields && fields.asset != null) {
+            assets = fields.asset.map((item, key) => {
                 if (item.fields) {
                     if (item.fields.media && item.fields.media.fields.file.contentType === "image/jpeg") {
                         let width;
@@ -205,7 +143,7 @@ class Project extends Component {
 
             });
         } else {
-            assetGrid = null
+            assets = null
         }
 
         return (
@@ -214,6 +152,12 @@ class Project extends Component {
                 {!isLoaded && (<Loader />)}
                 {isLoaded && (
                     <React.Fragment>
+                        <MetaTags>
+                            <title>{fields.title} | {fields.title}</title>
+                            <meta name="description" content={fields.body} />
+                            <meta property="og:title" content={fields.title} />
+                            <meta property="og:image" content={fields.heroAsset.fields.media.fields.file.url} />
+                        </MetaTags>
                         <Navigation />
                         <article>
                             <ImageModal
@@ -223,7 +167,7 @@ class Project extends Component {
                                 toggleModal={this.toggleModal}
                             />
 
-                            <div className={`post ${displayStyle}`}>
+                            <div className="post grid">
                                 {!overviewProject &&
                                     <div className="text-wrapper half full-height">
                                         <div className="text-container">
@@ -235,10 +179,8 @@ class Project extends Component {
                                     </div>
                                 }
 
-                                {assetSlide}
-
                                 <div className={`grid-wrapper ${overviewProject ? 'full' : 'half' } ${assetLength == 1 ? "single-asset" : "multi-asset"} ${assetLength > 9 ? "not-fixed" : ""}`}>
-                                    {assetGrid}
+                                    {assets}
                                 </div>
 
                             </div>
