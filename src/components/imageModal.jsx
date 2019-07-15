@@ -21,6 +21,7 @@ class ImageModal extends Component {
             type = "image";
             videoUrl = "";
         }
+        console.log(modalContent.asset[imageIndex]);
         this.setState({
             item:modalContent.asset[imageIndex],
             type: type,
@@ -40,6 +41,7 @@ class ImageModal extends Component {
                 type = "image";
                 videoUrl = "";
             }
+            console.log(modalContent.asset[imageIndex]);
             this.setState({
                 item:modalContent.asset[imageIndex],
                 type: type,
@@ -71,8 +73,6 @@ class ImageModal extends Component {
             nextAssetVal = index + 1
             nextAsset = modalContent.asset[nextAssetVal]
         }
-
-        console.log(nextAssetVal, modalContent.asset.length);
 
         // Click to see next image or loop back to start
         if (nextAssetVal > 0 && nextAssetVal < modalContent.asset.length) {
@@ -109,21 +109,20 @@ class ImageModal extends Component {
 
     render() {
 
-        const {showModal, modalContent, imageIndex, toggleModal} = this.props;
+        const {showImageModal, modalContent, imageIndex, toggleImageModal} = this.props;
         const {item, type, videoUrl, isLoaded} = this.state;
         return (
             <React.Fragment>
                 {!isLoaded && (<Loader />)}
                 {isLoaded && (
-                    <div className={showModal === true ? "md-show modal-wrapper modal-wrapper-image" : "md-hide modal-wrapper"}>
+                    <div className={showImageModal === true ? "md-show modal-wrapper" : "md-hide modal-wrapper"}>
                         <div className={`modal ${item.fields.backgroundColour}-bg`}>
-                            <i className="material-icons close-trigger" onClick={() => toggleModal(false, item)}>close</i>
-                            {type === "image" && (<Image imgAlt={item.fields.title} imgSrc={item.fields.media.fields.file.url} width={1200} />)}
+                            <i className="material-icons close-trigger" onClick={() => toggleImageModal(false, item)}>close</i>
+                            {type === "image" && (<Image imgAlt={item.fields.title} imgSrc={item.fields.media.fields.file.url} width={720} />)}
                             {type !== "image" && (<div className="iframe-container"><iframe src={videoUrl}></iframe></div>)}
                             <div className="half forwards" onClick={() => this.toggleIndex(item, "forwards")}></div>
                             <div className="half backwards" onClick={() => this.toggleIndex(item, "backwards")}></div>
                         </div>
-                        <div className="overlay" onClick={() => toggleModal(false, item)}></div>
                     </div>
                 )}
             </React.Fragment>

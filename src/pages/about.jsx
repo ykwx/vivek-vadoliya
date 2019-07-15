@@ -6,12 +6,13 @@ import Contentful from '../app/Contentful'
 import * as Markdown from 'react-markdown'
 import Loader from '../components/loader'
 import Navigation from '../components/navigation'
-
+import Modal from '../components/modal'
 
 class About extends Component {
 
     state = {
         isLoaded: false,
+        showModal: false,
         entry: []
     }
 
@@ -32,6 +33,12 @@ class About extends Component {
         })
     }
 
+    toggleModal = (val) => {
+        this.setState({
+            showModal: val,
+        });
+    }
+
     render() {
 
         const { entry, isLoaded } = this.state;
@@ -50,8 +57,12 @@ class About extends Component {
             {!isLoaded && (<Loader />)}
             {isLoaded && (
                 <React.Fragment>
-                    <Navigation />
-                    <div className="about-page page-wrapper pink-bg">
+                    <Navigation toggleModal={this.toggleModal} />
+                    <Modal
+                        showModal={this.state.showModal}
+                        toggleModal={this.toggleModal}
+                    />
+                    <div className="about-page page-wrapper black-bg">
                         <div className="contact-row white-text">
                             <h4>
                                 <a href="mailto:studio@vivekvadoliya.com" target="_blank">studio@vivekvadoliya.com</a>
@@ -61,7 +72,7 @@ class About extends Component {
                             </h4>
                         </div>
 
-                        <div className="full push-down black-bg">
+                        <div className="half push-down black-bg">
                             <div className="wrapper">
                                 <div className="text-body">
                                     <div className="text-block white-text body-text">

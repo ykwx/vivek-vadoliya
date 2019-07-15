@@ -1,5 +1,5 @@
 import React from 'react'
-import loading from '../assets/images/loading.svg'
+import loading from '../assets/images/turban.png'
 
 const Loader = () => (
   <div className="container">

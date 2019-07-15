@@ -8,8 +8,9 @@ import * as Markdown from 'react-markdown'
 
 import Image from '../components/image'
 import Loader from '../components/loader'
-import ImageModal from '../components/imageModal'
 import Navigation from '../components/navigation'
+import Modal from '../components/modal'
+import ImageModal from '../components/imageModal'
 
 
 class Project extends Component {
@@ -26,6 +27,7 @@ class Project extends Component {
             meta: [],
             seo: [],
             showModal: false,
+            showImageModal: false,
             overviewProject: false,
             assetLength: 0,
             imageIndex: 0
@@ -76,11 +78,16 @@ class Project extends Component {
         })
     }
 
-
-    toggleModal = (val, item) => {
-        const index = this.state.fields.asset.findIndex(a => a.sys.id === item.sys.id);
+    toggleModal = (val) => {
         this.setState({
             showModal: val,
+        });
+    }
+
+    toggleImageModal = (val, item) => {
+        const index = this.state.fields.asset.findIndex(a => a.sys.id === item.sys.id);
+        this.setState({
+            showImageModal: val,
             imageIndex: index
         });
     }
@@ -103,8 +110,7 @@ class Project extends Component {
     }
 
     render() {
-        const { fields, isLoaded, showModal, overviewProject, assetLength } = this.state;
-        console.log(fields);
+        const { fields, isLoaded, showModal, showImageModal, overviewProject, assetLength } = this.state;
         let assets
         if (fields && fields.asset != null) {
             assets = fields.asset.map((item, key) => {
@@ -117,14 +123,14 @@ class Project extends Component {
                             width = 320;
                         }
                         return (
-                            <div className="image-block click" key={key} onClick={() => this.toggleModal(true, item)}>
+                            <div className="image-block click" key={key} onClick={() => this.toggleImageModal(true, item)}>
                                 <Image imgAlt={item.title} imgSrc={item.fields.media.fields.file.url} width={width} />
                             </div>
                         );
                     } else if (item.fields.media && item.fields.media.fields.file.contentType !== "image/jpeg") {
                         // Video
                         return (
-                            <div className="image-block click" key={key} onClick={() => this.toggleModal(true, item)}>
+                            <div className="image-block click" key={key} onClick={() => this.toggleImageModal(true, item)}>
                                 <span className="image-wrap"><video alt={item.title} src={item.fields.media.fields.file.url} autoPlay={true} muted loop/></span>
                             </div>
                         );
@@ -132,7 +138,7 @@ class Project extends Component {
                         // Video link
                         const videoSrc = "https://player.vimeo.com/video" + item.fields.videoLink.split("vimeo.com")[1];
                         return (
-                            <div className="image-block click" key={key} onClick={() => this.toggleModal(true, item)}>
+                            <div className="image-block click" key={key} onClick={() => this.toggleImageModal(true, item)}>
                                 <span className="image-wrap"><iframe alt={item.fields.title} src={videoSrc} /></span>
                             </div>
                         );
@@ -158,13 +164,17 @@ class Project extends Component {
                             <meta property="og:title" content={fields.title} />
                             <meta property="og:image" content={fields.heroAsset.fields.media.fields.file.url} />
                         </MetaTags>
-                        <Navigation />
+                        <Navigation toggleModal={this.toggleModal} />
+                        <Modal
+                            showModal={this.state.showModal}
+                            toggleModal={this.toggleModal}
+                        />
                         <article>
                             <ImageModal
                                 modalContent={fields}
                                 imageIndex={this.state.imageIndex}
-                                showModal={this.state.showModal}
-                                toggleModal={this.toggleModal}
+                                showImageModal={this.state.showImageModal}
+                                toggleImageModal={this.toggleImageModal}
                             />
 
                             <div className="post grid">
@@ -179,7 +189,7 @@ class Project extends Component {
                                     </div>
                                 }
 
-                                <div className={`grid-wrapper ${overviewProject ? 'full' : 'half' } ${assetLength == 1 ? "single-asset" : "multi-asset"} ${assetLength > 9 ? "not-fixed" : ""}`}>
+                                <div className={`grid-wrapper ${overviewProject ? 'full' : 'half' } ${assetLength == 1 ? "single-asset" : "multi-asset"} ${assetLength > 8 ? "not-fixed" : ""}`}>
                                     {assets}
                                 </div>
 

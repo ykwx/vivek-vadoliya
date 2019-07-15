@@ -9,12 +9,14 @@ import ProjectItem from '../components/projectItem'
 import Image from '../components/image'
 import Loader from '../components/loader'
 import Navigation from '../components/navigation'
+import Modal from '../components/modal'
 
 
 class Projects extends Component {
     state = {
         isLoaded: false,
         entries: [],
+        showModal: false,
         img: {
             alt: 'Vivek Vadoliya',
             src: undefined,
@@ -71,11 +73,17 @@ class Projects extends Component {
 
     }
 
+    toggleModal = (val) => {
+        this.setState({
+            showModal: val,
+        });
+    }
+
 
     render() {
 
         const pageTitle = "Projects"
-        const { entries } = this.state;
+        const { entries, isLoaded } = this.state;
 
         if (entries && entries.length) {
             const { entries } = this.state;
@@ -98,8 +106,12 @@ class Projects extends Component {
                             <meta property="og:title" content={Config.siteTitle} />
                             <meta property="og:image" content='../assets/images/meta-img.jpg' />
                         </MetaTags>
-                        <Navigation />
-                        <div className="half left-side black-bg push-down">
+                        <Navigation toggleModal={this.toggleModal} />
+                        <Modal
+                            showModal={this.state.showModal}
+                            toggleModal={this.toggleModal}
+                        />
+                        <div className="half left-side white-bg push-down">
                             <div className="wrapper center-text">
 
                                 <ul className="article-list">
@@ -114,7 +126,7 @@ class Projects extends Component {
                                 </ul>
 
                                 <ul className="article-list">
-                                    <h4>Personal Projects</h4>
+                                    <h4>Selected Projects</h4>
                                     {editorial.map(({fields}, i) => {
                                         return (
                                             <li key={i} onMouseOver={this.handleMouseOver(fields)}>
@@ -140,7 +152,7 @@ class Projects extends Component {
                             <div className="image-wrapper wrapper vert-align">
                                 <Link to={link}>
                                     {type === "image/jpeg" && (<Image imgAlt={alt} imgSrc={src} width={720} />)}
-                                    {type !== "image/jpeg" && (<span className="image-wrap"><video alt={alt} src={src} width={720} autoplay="true" muted loop/></span>)}
+                                    {type !== "image/jpeg" && (<span className="image-wrap"><video alt={alt} src={src} width={720} autoPlay="true" muted loop/></span>)}
                                 </Link>
                             </div>
                         </div>
