@@ -26,6 +26,7 @@ class Home extends Component {
     })
 
     setEntry = response => {
+        console.log(response.items);
         this.setState({
             entry: response.items[0],
             isLoaded: true
@@ -36,36 +37,46 @@ class Home extends Component {
     render() {
 
         const { entry, isLoaded } = this.state;
-        console.log(entry);
+        console.log(entry, entry.length);
 
-        return (
-            <React.Fragment>
-                <MetaTags>
-                    <title>{Config.siteTitle}</title>
-                    <meta name="description" content={Config.siteTitle} />
-                    <meta property="og:title" content={Config.siteTitle} />
-                    <meta property="og:image" content='../assets/images/meta-img.jpg' />
-                </MetaTags>
-                <SEO path={"/about"} content="" />
-                <div className="page-wrapper">
-                    <Link to="/projects">
-                        <div className="half left-side full-height">
-                            <div className="wrapper vert-align image-wrapper">
-                            {!isLoaded && (<Loader />)}
-                            {
-                              isLoaded && (
-                                <Image imgAlt={entry.fields.title} imgSrc={entry.fields.images[0].fields.file.url} width={720} />
-                            )}
+        if (entry && entry.fields) {
+            const {images} = entry.fields
+            return (
+                <React.Fragment>
+                    <MetaTags>
+                        <title>{Config.siteTitle}</title>
+                        <meta name="description" content={Config.siteTitle} />
+                        <meta property="og:title" content={Config.siteTitle} />
+                        <meta property="og:image" content='../assets/images/meta-img.jpg' />
+                    </MetaTags>
+                    <SEO path={"/about"} content="" />
+                    <div className="page-wrapper">
+                        <Link to="/projects">
+                            <div className="half left-side full-height">
+                                <div className="wrapper vert-align image-wrapper home-slider">
+
+                                  {images.map(({fields}, i) => {
+                                      return (
+                                          <Image key={i} imgAlt={fields.title} imgSrc={fields.file.url} width={720} />
+                                      )
+                                  })}
+
+                                </div>
                             </div>
-                        </div>
-                    </Link>
+                        </Link>
 
-                    <div className="half right-side black-bg full-height">
-                        <HomeCanvas />
+                        <div className="half right-side black-bg full-height">
+                            <HomeCanvas />
+                        </div>
                     </div>
-                </div>
-            </React.Fragment>
-        )
+                </React.Fragment>
+            )
+
+        } else {
+            return (<Loader />);
+        }
+
+
     }
 }
 

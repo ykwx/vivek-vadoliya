@@ -24,6 +24,7 @@ class About extends Component {
         content_type: 'about',
         limit: 1,
         order: 'sys.createdAt'
+
     })
 
     setEntry = response => {
