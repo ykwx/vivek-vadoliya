@@ -54,13 +54,14 @@
      // Project page
      .post {
          display: block;
+         padding-top: 60px;
          .text-wrapper {
              height: auto;
              min-height: auto;
              position: relative!important;
              .text-container {
                  .text-block {
-                     padding: 100px 0 50px;
+                     padding: 50px 0 0!important;
                      margin: 0;
                  }
              }
@@ -79,9 +80,13 @@
              .image-block {
                  width: 100%;
                  box-sizing: border-box;
-                 video, iframe {
-                     width: 100%!important;
+                 .image-wrap {
+                     max-width: 100%!important;
+                     video, iframe {
+                         width: 100%!important;
+                     }
                  }
+
              }
          }
      }

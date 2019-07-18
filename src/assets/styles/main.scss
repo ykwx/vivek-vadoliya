@@ -404,6 +404,7 @@ nav.navigation {
 .home-slider {
     .home-slide {
         position: absolute;
+        left: 0;
         transition: opacity .5s ease-in-out;
         &.hide-img {
             opacity: 0;
