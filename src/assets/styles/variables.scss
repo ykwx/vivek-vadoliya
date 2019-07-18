@@ -11,6 +11,16 @@
 
 @import url('https://fonts.googleapis.com/css?family=Libre+Franklin:400,500,700|Amiko|Cormorant+Garamond|Crimson+Text|Open+Sans:300,400|Material+Icons');
 
+@font-face {
+  font-family: 'HK';
+  src: url('../fonts/hkgrotesk-regular.eot');
+  src: url('../fonts/hkgrotesk-regular.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/hkgrotesk-regular.ttf') format('truetype'),
+       url('../fonts/hkgrotesk-regular.woff') format('woff'),
+       url('../fonts/hkgrotesk-regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
 
 .material-icons {
 	font-weight: normal;
@@ -35,7 +45,7 @@
 
 
 
-$font_body: "Amiko", "Libre Franklin", "Open Sans", "Avenir", Tahoma, Arial, Helvetica, sans-serif;
+$font_body: "HK", "Amiko", "Libre Franklin", "Open Sans", "Avenir", Tahoma, Arial, Helvetica, sans-serif;
 $font_material: 'Material Icons';
 
 
