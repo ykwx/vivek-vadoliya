@@ -44,7 +44,6 @@ class About extends Component {
 
         const { entry, isLoaded } = this.state;
         const pageTitle = "About"
-        console.log(entry);
 
         return (
             <React.Fragment>
@@ -62,6 +61,7 @@ class About extends Component {
                     <Modal
                         showModal={this.state.showModal}
                         toggleModal={this.toggleModal}
+                        content={"about"}
                     />
                     <div className="about-page page-wrapper black-bg">
                         <div className="contact-row white-text">

@@ -133,7 +133,7 @@ a {
     display: inline-block;
     float: left;
     &.push-down {
-        padding-top: 70px;
+        padding-top: 100px;
         min-height: calc(100vh - 70px);
     }
 }
@@ -143,22 +143,38 @@ a {
     .image-wrap {
         img, video {
             animation: fadeInImage .7s 0s forwards ease-in-out!important;
+            width: 100%;
         }
     }
 }
 
-video {
-    position: relative;
-    &:after {
-        position: absolute;
-        display: block;
-        background-color: rgba($black, .5);
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
+
+.single-asset {
+    .image-wrap.video-wrap {
+        position: relative;
+        &:before {
+            content: '';
+            background-color: rgba($black, .5);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        &:after {
+            content: '';
+            background-image: url('../images/play.svg');
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: calc(50% - 25px);
+            left: calc(50% - 25px);
+            z-index: 2;
+        }
     }
 }
+
 
 .right-side.locked {
     position: fixed;
@@ -200,9 +216,6 @@ video {
 
 .image-wrap {
     position: relative;
-    // width: 320px;
-    // height: 200px;
-    // background-color: #222222;
     -webkit-transform: translate3d(0,5px,0);
     transform: translate3d(0,5px,0);
     opacity: 0;
@@ -300,6 +313,7 @@ nav.navigation {
         text-align: center;
         .text-wrap, .image-wrap, .iframe-container {
             flex: 1;
+            display: flex;
             opacity: 0;
             margin-top: 50px;
             transition: opacity 1s .8s cubic-bezier(0.785, 0.135, 0.15, 0.86), margin-top .3s 1.2s ease-in-out;
@@ -307,6 +321,7 @@ nav.navigation {
 
         .text-wrap {
             max-width: 620px;
+            flex-direction: column;
         }
         .image-wrap {
             height: 80vh;
@@ -387,8 +402,20 @@ nav.navigation {
 ========================================================================== */
 
 .home-slider {
-    .image-wrap {
+    .home-slide {
         position: absolute;
+        transition: opacity .5s ease-in-out;
+        &.hide-img {
+            opacity: 0;
+            z-index: 0;
+        }
+        &.show-img {
+            opacity: 1;
+            z-index: 2;
+        }
+        img:hover {
+            margin-bottom: 0;
+        }
     }
 }
 
@@ -408,7 +435,7 @@ nav.navigation {
 	background-size: contain;
 	width: 100%;
 	max-width: 100%;
-	height: 100vh;
+	height: auto;
 }
 
 
@@ -422,6 +449,11 @@ nav.navigation {
     position: relative;
     .push-down {
         padding-top: 150px;
+    }
+    .wrapper {
+        width: 100%;
+        padding: 0 30px 80px;
+        box-sizing: border-box;
     }
 
     .body-text {
@@ -514,14 +546,14 @@ nav.navigation {
   }
   h3 {
       color: $black;
-      font-size: 1.2em;
+      font-size: 1em;
       margin: 0 0 5px;
   }
   li {
       transition: all .3s cubic-bezier(.25,.01,.25,1);
       &:hover {
-          -webkit-transform: translate3d(0,-5px,0);
-          transform: translate3d(0,-5px,0);
+          -webkit-transform: translate3d(0,-2px,0);
+          transform: translate3d(0,-2px,0);
       }
   }
 }
@@ -564,14 +596,22 @@ nav.navigation {
         overflow-y: auto;
         display: flex;
         justify-content: center;
+        align-items: center;
+        &.no-flex {
+            display: block;
+            .text-block {
+                padding: 20vh 50px 50px!important;
+            }
+        }
         .text-container {
             text-align: center;
+            flex: 1;
             // display: flex;
             // justify-content: center;
             // flex-direction: column;
             padding: 0 20px;
             .text-block {
-                padding: 20vh 50px 100px;
+                padding: 0 50px 50px;
                 box-sizing: border-box;
                 h1 {
                     font-family: "Cormorant Garamond", "Crimson Text", serif;
@@ -639,6 +679,9 @@ nav.navigation {
                 justify-content: center;
                 .image-block {
                     width: auto;
+                    .image-wrap {
+                        max-width: 80%;
+                    }
                     video, img, iframe {
                         width: 100%;
                     }
@@ -662,6 +705,7 @@ nav.navigation {
                 .image-block {
                     box-sizing: border-box;
                     width: auto;
+
                     img, video {
                         width: 100%;
                     }
@@ -686,6 +730,7 @@ nav.navigation {
                 background-color: $white-smoke;
                 display: block;
                 margin: 0 auto;
+
             }
             .img, video, iframe {
                 width: 120px;

@@ -55,7 +55,7 @@ class Project extends Component {
             let metaImage = data.fields.asset[0].fields.media.fields.file.url
             assetLengthVal = data.fields.asset.length;
         } else {
-            assetLengthVal = 0;
+            assetLengthVal = 1;
         }
 
         if (data.fields.tag.fields.slug === 'overview') {
@@ -111,8 +111,10 @@ class Project extends Component {
 
     render() {
         const { fields, isLoaded, showModal, showImageModal, overviewProject, assetLength } = this.state;
+
         let assets
         if (fields && fields.asset != null) {
+
             assets = fields.asset.map((item, key) => {
                 if (item.fields) {
                     if (item.fields.media && item.fields.media.fields.file.contentType === "image/jpeg") {
@@ -131,7 +133,7 @@ class Project extends Component {
                         // Video
                         return (
                             <div className="image-block click" key={key} onClick={() => this.toggleImageModal(true, item)}>
-                                <span className="image-wrap"><video alt={item.title} src={item.fields.media.fields.file.url} autoPlay={true} muted loop/></span>
+                                <span className="image-wrap video-wrap"><video alt={item.title} src={item.fields.media.fields.file.url} autoPlay={true} muted loop/></span>
                             </div>
                         );
                     } else {
@@ -168,6 +170,7 @@ class Project extends Component {
                         <Modal
                             showModal={this.state.showModal}
                             toggleModal={this.toggleModal}
+                            content={"about"}
                         />
                         <article>
                             <ImageModal
@@ -179,7 +182,7 @@ class Project extends Component {
 
                             <div className="post grid">
                                 {!overviewProject &&
-                                    <div className="text-wrapper half full-height">
+                                    <div className={`text-wrapper half full-height ${fields.body.length > 800 ? 'no-flex' : 'flex'}`}>
                                         <div className="text-container">
                                             <div className="text-block">
                                                 <h1>{fields.title}</h1>

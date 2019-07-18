@@ -7,12 +7,15 @@ import Contentful from '../app/Contentful'
 import Image from '../components/image'
 import HomeCanvas from '../components/homeCanvas'
 import Loader from '../components/loader'
+import Modal from '../components/modal'
 
 class Home extends Component {
 
     state = {
         isLoaded: false,
-        entry: []
+        showModal: false,
+        entry: [],
+        imageIndex: 0
     }
 
     componentDidMount() {
@@ -26,18 +29,32 @@ class Home extends Component {
     })
 
     setEntry = response => {
-        console.log(response.items);
         this.setState({
             entry: response.items[0],
             isLoaded: true
         })
     }
 
+    handleMouseOver = (i, arrayLength) => e => {
+        let val;
+        if ( e.movementX < 0 || e.movementX > 0 || e.movementY < 0 || e.movementY > 0 ) {
+            if (i + 1 == arrayLength) {
+                val = 0;
+            } else {
+                val = i + 1;
+            }
+            this.setState({imageIndex: val});
+        }
+    }
+
+    toggleModal = (val) => {
+        this.setState({
+            showModal: val,
+        });
+    }
 
     render() {
-
-        const { entry, isLoaded } = this.state;
-        console.log(entry, entry.length);
+        const { entry, isLoaded, imageIndex } = this.state;
 
         if (entry && entry.fields) {
             const {images} = entry.fields
@@ -50,22 +67,33 @@ class Home extends Component {
                         <meta property="og:image" content='../assets/images/meta-img.jpg' />
                     </MetaTags>
                     <SEO path={"/about"} content="" />
+                    <nav className="navigation" role="navigation">
+                        <ul>
+                            <li className="float-right">
+                                <span className="emoji turban click" onClick={() => this.toggleModal(true)}>Open</span>
+                            </li>
+                        </ul>
+                    </nav>
+                    <Modal
+                        showModal={this.state.showModal}
+                        toggleModal={this.toggleModal}
+                        content={"name"}
+                    />
                     <div className="page-wrapper">
                         <Link to="/projects">
                             <div className="half left-side full-height">
                                 <div className="wrapper vert-align image-wrapper home-slider">
-
                                   {images.map(({fields}, i) => {
                                       return (
-                                          <Image key={i} imgAlt={fields.title} imgSrc={fields.file.url} width={720} />
+                                          <div key={i} className={`home-slide ${i == imageIndex ? 'show-img' : 'hide-img' }`} onMouseMove={this.handleMouseOver(i, images.length)}>
+                                              <Image imgAlt={fields.title} imgSrc={fields.file.url} width={720} />
+                                          </div>
                                       )
                                   })}
-
                                 </div>
                             </div>
                         </Link>
-
-                        <div className="half right-side black-bg full-height">
+                        <div className="half right-side black-bg full-height hide-on-mobile">
                             <HomeCanvas />
                         </div>
                     </div>

@@ -21,7 +21,6 @@ class ImageModal extends Component {
             type = "image";
             videoUrl = "";
         }
-        console.log(modalContent.asset[imageIndex]);
         this.setState({
             item:modalContent.asset[imageIndex],
             type: type,
@@ -41,7 +40,6 @@ class ImageModal extends Component {
                 type = "image";
                 videoUrl = "";
             }
-            console.log(modalContent.asset[imageIndex]);
             this.setState({
                 item:modalContent.asset[imageIndex],
                 type: type,

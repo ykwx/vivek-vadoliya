@@ -27,6 +27,7 @@
     }
     // Homepage
 
+
     // About page
     .contact-row {
         h4 {
@@ -43,6 +44,12 @@
         width: 100%;
     }
 
+    .about-page {
+        .wrapper {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    }
 
      // Project page
      .post {
@@ -78,7 +85,16 @@
              }
          }
      }
+}
 
-
-
+@include breakpoint (wide-browser) {
+    .half.left-side {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .post.grid .grid-wrapper.multi-asset {
+        columns: 5;
+    }
 }

@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import Emoji from './emoji'
 
 const Navigation = (props) => {
-    console.log(props)
     return (
         <nav className="navigation" role="navigation">
             <ul>

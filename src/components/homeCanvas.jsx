@@ -40,7 +40,6 @@ class HomeCanvas extends Component {
         let mouseX = 0;
         let mouseY = 0;
         drawDot = (mouseX, mouseY) => {
-            console.log('drawDot');
             ctx.beginPath();
             ctx.arc(mouseX, mouseY, brushRadius, 0, 2*Math.PI, true);
             ctx.fillStyle = '#000';
@@ -77,7 +76,7 @@ class HomeCanvas extends Component {
             }
         }, false);
     }
-    
+
 
     render() {
         return (

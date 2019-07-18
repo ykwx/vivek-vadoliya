@@ -110,6 +110,7 @@ class Projects extends Component {
                         <Modal
                             showModal={this.state.showModal}
                             toggleModal={this.toggleModal}
+                            content={"about"}
                         />
                         <div className="half left-side white-bg push-down">
                             <div className="wrapper center-text">
@@ -151,8 +152,8 @@ class Projects extends Component {
                         <div className="half right-side full-height locked hide-on-mobile">
                             <div className="image-wrapper wrapper vert-align">
                                 <Link to={link}>
-                                    {type === "image/jpeg" && (<Image imgAlt={alt} imgSrc={src} width={720} />)}
-                                    {type !== "image/jpeg" && (<span className="image-wrap"><video alt={alt} src={src} width={720} autoPlay="true" muted loop/></span>)}
+                                    {type === "image/jpeg" && (<Image imgAlt={alt} imgSrc={src} width={520} />)}
+                                    {type !== "image/jpeg" && (<span className="image-wrap"><video alt={alt} src={src} width={520} autoPlay={true} muted loop/></span>)}
                                 </Link>
                             </div>
                         </div>
