@@ -520,8 +520,6 @@ nav.navigation {
     }
     h4 {
         margin: 0;
-        font-family: "Cormorant Garamond", "Crimson Text", serif;
-        font-size: 1.2em;
     }
 }
 
@@ -615,8 +613,7 @@ nav.navigation {
                 padding: 0 50px 50px;
                 box-sizing: border-box;
                 h1 {
-                    font-family: "Cormorant Garamond", "Crimson Text", serif;
-                    letter-spacing: 1px;
+                    letter-spacing: .5px;
                     margin-top: 0;
                     font-weight: 700;
                     line-height: 1.4;
@@ -624,6 +621,14 @@ nav.navigation {
                 }
                 p {
                     font-size: 14px;
+                }
+            }
+        }
+        &.flex {
+            .text-container {
+                .text-block {
+                    padding-bottom: 0;
+                    margin-bottom: 0;
                 }
             }
         }

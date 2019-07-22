@@ -8,7 +8,8 @@ class ImageModal extends Component {
         item: "",
         type: "video",
         isLoaded: false,
-        videoUrl: ""
+        videoUrl: "",
+        numberOfAssets: 1
     }
 
     componentDidMount() {
@@ -25,7 +26,8 @@ class ImageModal extends Component {
             item:modalContent.asset[imageIndex],
             type: type,
             videoUrl: videoUrl,
-            isLoaded: true
+            isLoaded: true,
+            numberOfAssets: modalContent.asset.length
         });
     }
 
@@ -44,7 +46,8 @@ class ImageModal extends Component {
                 item:modalContent.asset[imageIndex],
                 type: type,
                 videoUrl: videoUrl,
-                isLoaded: true
+                isLoaded: true,
+                numberOfAssets: modalContent.asset.length
             });
         }
     }
@@ -108,7 +111,8 @@ class ImageModal extends Component {
     render() {
 
         const {showImageModal, modalContent, imageIndex, toggleImageModal} = this.props;
-        const {item, type, videoUrl, isLoaded} = this.state;
+        const {item, type, videoUrl, isLoaded, numberOfAssets} = this.state;
+        console.log(numberOfAssets);
         return (
             <React.Fragment>
                 {!isLoaded && (<Loader />)}
@@ -118,8 +122,14 @@ class ImageModal extends Component {
                             <i className="material-icons close-trigger" onClick={() => toggleImageModal(false, item)}>close</i>
                             {type === "image" && (<Image imgAlt={item.fields.title} imgSrc={item.fields.media.fields.file.url} width={720} />)}
                             {type !== "image" && (<div className="iframe-container"><iframe src={videoUrl}></iframe></div>)}
-                            <div className="half forwards" onClick={() => this.toggleIndex(item, "forwards")}></div>
-                            <div className="half backwards" onClick={() => this.toggleIndex(item, "backwards")}></div>
+
+                            {numberOfAssets > 1 && (
+                                <React.Fragment>
+                                    <div className="half forwards" onClick={() => this.toggleIndex(item, "forwards")}></div>
+                                    <div className="half backwards" onClick={() => this.toggleIndex(item, "backwards")}></div>
+                                </React.Fragment>
+                            )}
+
                         </div>
                     </div>
                 )}

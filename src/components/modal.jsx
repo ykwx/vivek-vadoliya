@@ -21,13 +21,9 @@ const Modal = ({showModal, toggleModal, content}) => {
                     {content == "name" &&
                         <React.Fragment>
                             <p>
-                                Vivek Vadoliya is a British Indian documentary and portrait photographer & director. Currently he is based between London and Berlin.
-                            </p>
-                            <p>“Man of Wisdom, Respect & Knowledge”</p>
-                            <p>
-                                <a href="mailto:studio@vivekvadoliya.com">studio@vivekvadoliya.com</a>
+                                Vivek*
                                 <br />
-                                <a href="https://instagram.com/vivekvad" target="_blank">@vivekvad</a>
+	                            Man of Wisdom, Respect & Knowledge
                             </p>
                         </React.Fragment>
                     }
