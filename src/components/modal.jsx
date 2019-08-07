@@ -21,9 +21,9 @@ const Modal = ({showModal, toggleModal, content}) => {
                     {content == "name" &&
                         <React.Fragment>
                             <p>
-                                Vivek*
+                                <span className="large">Vivek*</span>
                                 <br />
-	                            Man of Wisdom, Respect & Knowledge
+	                            A name of Sanskrit origin meaning Man of Wisdom, Respect & Knowledge
                             </p>
                         </React.Fragment>
                     }
