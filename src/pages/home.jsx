@@ -9,6 +9,8 @@ import HomeCanvas from '../components/homeCanvas'
 import Loader from '../components/loader'
 import Modal from '../components/modal'
 
+import metaImage from '../assets/images/meta-img.jpg'
+
 class Home extends Component {
 
     state = {
@@ -64,7 +66,7 @@ class Home extends Component {
                         <title>{Config.siteTitle}</title>
                         <meta name="description" content={Config.siteTitle} />
                         <meta property="og:title" content={Config.siteTitle} />
-                        <meta property="og:image" content='../assets/images/meta-img.jpg' />
+                        <meta property="og:image" content={metaImage} />
                     </MetaTags>
                     <SEO path={"/about"} content="" />
                     <nav className="navigation" role="navigation">

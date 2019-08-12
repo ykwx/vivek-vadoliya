@@ -408,8 +408,10 @@ nav.navigation {
 ========================================================================== */
 
 .home-slider {
+    flex: 1;
     .home-slide {
         position: absolute;
+        width: 100%;
         left: 0;
         transition: opacity .5s ease-in-out;
         &.hide-img {
@@ -432,23 +434,6 @@ nav.navigation {
     }
 }
 
-// .canvasContainer {
-//     height: 100vh;
-//     margin: 0;
-//     opacity: 0;
-//     animation: fadeInImage 1s .2s forwards ease-in-out;
-//     cursor: url('../images/hand.png'), auto;
-// }
-//
-// #canvas {
-// 	display: block;
-// 	margin: 0 auto;
-//     background-image: url('../images/vivek-hindi.svg');
-// 	background-size: contain;
-// 	width: 100%;
-// 	max-width: 100%;
-// 	height: auto;
-// }
 
 .vv-distort-bg {
 	background-color: var(--item-bg);
@@ -459,6 +444,8 @@ nav.navigation {
 	display: block;
 	height: 100%;
 	width: 100%;
+    opacity: 0;
+    animation: fadeInImage .6s 1.4s forwards ease-in-out;
 }
 
 #vv-distort-img canvas {
@@ -730,6 +717,11 @@ nav.navigation {
                         max-width: 80%;
                     }
                     video, img, iframe {
+                        width: 100%;
+                    }
+                    video {
+                        max-height: 100%!important;
+                        max-width: 100%!important;
                         width: 100%;
                     }
                 }

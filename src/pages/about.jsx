@@ -8,6 +8,8 @@ import Loader from '../components/loader'
 import Navigation from '../components/navigation'
 import Modal from '../components/modal'
 
+import metaImage from '../assets/images/meta-img.jpg'
+
 class About extends Component {
 
     state = {
@@ -51,7 +53,7 @@ class About extends Component {
                 <title>{pageTitle} | {Config.siteTitle}</title>
                 <meta name="description" content={Config.siteTitle} />
                 <meta property="og:title" content={Config.siteTitle} />
-                <meta property="og:image" content='../assets/images/meta-img.jpg' />
+                <meta property="og:image" content={metaImage} />
             </MetaTags>
             <SEO path={"/about"} content="" />
             {!isLoaded && (<Loader />)}

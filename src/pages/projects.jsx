@@ -11,6 +11,7 @@ import Loader from '../components/loader'
 import Navigation from '../components/navigation'
 import Modal from '../components/modal'
 
+import metaImage from '../assets/images/meta-img.jpg'
 
 class Projects extends Component {
     state = {
@@ -104,7 +105,7 @@ class Projects extends Component {
                             <title>{pageTitle} | {Config.siteTitle}</title>
                             <meta name="description" content={Config.siteTitle} />
                             <meta property="og:title" content={Config.siteTitle} />
-                            <meta property="og:image" content='../assets/images/meta-img.jpg' />
+                            <meta property="og:image" content={metaImage} />
                         </MetaTags>
                         <Navigation toggleModal={this.toggleModal} />
                         <Modal
@@ -152,8 +153,8 @@ class Projects extends Component {
                         <div className="half right-side full-height locked hide-on-mobile">
                             <div className="image-wrapper wrapper vert-align">
                                 <Link to={link}>
-                                    {type === "image/jpeg" && (<Image imgAlt={alt} imgSrc={src} width={520} />)}
-                                    {type !== "image/jpeg" && (<span className="image-wrap"><video alt={alt} src={src} width={520} autoPlay={true} muted loop/></span>)}
+                                    {type === "image/jpeg" && (<Image imgAlt={alt} imgSrc={src} width={720} />)}
+                                    {type !== "image/jpeg" && (<span className="image-wrap"><video alt={alt} src={src} width={720} autoPlay={true} muted loop/></span>)}
                                 </Link>
                             </div>
                         </div>
