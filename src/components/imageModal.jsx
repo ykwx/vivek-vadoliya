@@ -112,7 +112,6 @@ class ImageModal extends Component {
 
         const {showImageModal, modalContent, imageIndex, toggleImageModal} = this.props;
         const {item, type, videoUrl, isLoaded, numberOfAssets} = this.state;
-        console.log(numberOfAssets);
         return (
             <React.Fragment>
                 {!isLoaded && (<Loader />)}

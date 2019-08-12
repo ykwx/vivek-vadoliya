@@ -10,26 +10,5 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <script src="%PUBLIC_URL%/js/imagesloaded.pkgd.min.js"></script>
-    <script src="%PUBLIC_URL%/js/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
-    <script src="%PUBLIC_URL%/js/hover.js"></script>
-
-    <script>
-        Array.from(document.querySelectorAll('.vv-distort-img')).forEach((el) => {
-            const imgs = Array.from(el.querySelectorAll('img'));
-            new hoverEffect({
-                parent: el,
-                intensity: el.dataset.intensity || undefined,
-                speedIn: el.dataset.speedin || undefined,
-                speedOut: el.dataset.speedout || undefined,
-                easing: el.dataset.easing || undefined,
-                hover: el.dataset.hover || undefined,
-                image1: imgs[0].getAttribute('src'),
-                image2: imgs[1].getAttribute('src'),
-                displacementImage: el.dataset.displacement
-            });
-        });
-    </script>
   </body>
 </html>

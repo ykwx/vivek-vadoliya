@@ -452,25 +452,20 @@ nav.navigation {
 
 .vv-distort-bg {
 	background-color: var(--item-bg);
-	height: 100vw;
+	height: 100vh;
 }
 
-.vv-distort-img {
+#vv-distort-img {
 	display: block;
 	height: 100%;
 	width: 100%;
 }
 
-.vv-distort-img canvas {
-	height: 100%;
+#vv-distort-img canvas {
+	height: 100%!important;
 }
 
-.vv-distort-img img {
-	height: 100%;
-	display: block;
-}
-
-.js .vv-distort-img img {
+#vv-distort-img img {
 	display: none;
 }
 

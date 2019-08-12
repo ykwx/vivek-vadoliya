@@ -22,7 +22,6 @@ const Modal = ({showModal, toggleModal, content}) => {
                         <React.Fragment>
                             <p>
                                 <span className="large">Vivek*</span>
-                                <br />
 	                            A name of Sanskrit origin meaning Man of Wisdom, Respect & Knowledge
                             </p>
                         </React.Fragment>
