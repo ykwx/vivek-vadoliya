@@ -181,6 +181,11 @@ span.large {
     }
 }
 
+.right-side {
+    // position: fixed;
+    // right: 0;
+    z-index: 0;
+}
 
 .right-side.locked {
     position: fixed;
@@ -302,16 +307,16 @@ nav.navigation {
     width: 100%;
     height: 100%;
     top: 100vh;
-    transition: top .3s .2s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    transition: top .3s cubic-bezier(0.785, 0.135, 0.15, 0.86) .2s;
     .modal {
         box-sizing: border-box;
         width: 100%;
         height: 100%;
-        background-color: $green;
+        background-color: $black;
         color: $white;
         border-radius: 2px;
         padding: 30px;
-        transition: background-color .4s .2s ease-in-out;
+        transition: background-color .3s ease-out;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -322,7 +327,7 @@ nav.navigation {
             display: flex;
             opacity: 0;
             margin-top: 50px;
-            transition: opacity 1s .8s cubic-bezier(0.785, 0.135, 0.15, 0.86), margin-top .3s 1.2s ease-in-out;
+            transition: opacity 1s cubic-bezier(0.785, 0.135, 0.15, 0.86) .8s, margin-top .3s ease-in-out 1.2s;
         }
 
         .text-wrap {
@@ -366,6 +371,11 @@ nav.navigation {
             &.forwards {
                 right: 0;
                 cursor: url('../images/right.png'), auto;
+
+                .text-wrap, .image-wrap, .iframe-container {
+                    opacity: 0;
+                    transition: opacity 1s cubic-bezier(0.785, 0.135, 0.15, 0.86) .8s, margin-top .3s ease-in-out 1.2s;
+                }
             }
             &.backwards {
                 left: 0;
@@ -413,14 +423,19 @@ nav.navigation {
         position: absolute;
         width: 100%;
         left: 0;
-        transition: opacity .5s ease-in-out;
+        // transition: opacity .5s ease-in-out;
         &.hide-img {
             opacity: 0;
             z-index: 0;
+            transition: opacity 0.2s ease-out;
+            // cubic-bezier(0.23, 1, 0.32, 1);
+            ;
         }
         &.show-img {
             opacity: 1;
             z-index: 2;
+            transition: opacity 0.2s ease-in;
+            // cubic-bezier(0.755, 0.05, 0.855, 0.06);
         }
         img:hover {
             margin-bottom: 0;
@@ -437,13 +452,13 @@ nav.navigation {
 
 .vv-distort-bg {
 	background-color: var(--item-bg);
-	height: 100vh;
 }
 
 #vv-distort-img {
 	display: block;
-	height: 100%;
-	width: 100%;
+	height: 50vw;
+    width: 50vw;
+    margin: calc(50vh - 25vw) 0;
     opacity: 0;
     animation: fadeInImage .6s 1.4s forwards ease-in-out;
 }

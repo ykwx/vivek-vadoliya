@@ -17,7 +17,8 @@ class Home extends Component {
         isLoaded: false,
         showModal: false,
         entry: [],
-        imageIndex: 0
+        imageIndex: 0,
+        mouseX: null
     }
 
     componentDidMount() {
@@ -39,8 +40,8 @@ class Home extends Component {
 
     handleMouseOver = (i, arrayLength) => e => {
         let val;
-        if ( e.movementX < 0 || e.movementX > 0 || e.movementY < 0 || e.movementY > 0 ) {
-            if (i + 1 == arrayLength) {
+        if ( e.movementX <-25 || e.movementX > 25 || e.movementY < -25 || e.movementY > 25 ) {
+            if (i + 1 === arrayLength) {
                 val = 0;
             } else {
                 val = i + 1;

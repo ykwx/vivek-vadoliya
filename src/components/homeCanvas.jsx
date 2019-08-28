@@ -85,8 +85,8 @@ class HomeCanvas extends Component {
         var image1 = opts.image1;
         var image2 = opts.image2;
         var intensity = opts.intensity || 1;
-        var speedin = opts.speedin || 1.6;
-        var speedout = opts.speedout || 1.2;
+        var speedin = opts.speedin || 2.5;
+        var speedout = opts.speedout || 2.5;
         var userHover = (opts.hover === undefined) ? true : opts.hover;
         var easing = opts.easing || Expo.easeOut;
 

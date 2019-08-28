@@ -68,10 +68,10 @@ class About extends Component {
                     <div className="about-page page-wrapper black-bg">
                         <div className="contact-row white-text">
                             <h4>
-                                <a href="mailto:studio@vivekvadoliya.com" target="_blank">studio@vivekvadoliya.com</a>
+                                <a href="mailto:vivekvadoliya@me.com" target="_blank">vivekvadoliya@me.com</a>
                             </h4>
                             <h4>
-                                <a href="https://instagram.com/vivekvad" target="_blank">@vivekvad</a>
+                                <a href="https://instagram.com/vivekvad" target="_blank">Instagram</a>
                             </h4>
                         </div>
 
