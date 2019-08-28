@@ -4,7 +4,7 @@ import { TweenMax, Expo } from 'gsap'
 import { Link } from 'react-router-dom';
 
 import imageEnglish from '../assets/images/vv-english.png'
-import imageHindi from '../assets/images/vv-hindi.png'
+import imageHindi from '../assets/images/vv-hindi1.png'
 import imageDisp from '../assets/images/displacement/7.jpg'
 
 class HomeCanvas extends Component {
@@ -211,7 +211,7 @@ class HomeCanvas extends Component {
       return (
           <Link to="/projects">
               <div className="vv-distort-bg distortion">
-                  <div id="vv-distort-img" data-displacement={imageDisp} data-intensity="0.2" data-speedin="1.6" data-speedout="1.6">
+                  <div id="vv-distort-img" data-displacement={imageDisp} data-intensity="-0.2">
                       <img src={imageEnglish} alt="Image"/>
                       <img src={imageHindi} alt="Image"/>
                   </div>
