@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SplitColorChannelText } from 'react-text-fun';
+import { SplitColorChannelText, DistortionText } from 'react-text-fun';
 
 class Modal extends Component {
 
@@ -44,7 +44,7 @@ class Modal extends Component {
                         {this.props.content === "name" &&
                             <React.Fragment
                             >
-                                <SplitColorChannelText
+                                <DistortionText
                                     text="Vivek*"
                                     // fontFamily= "HK"
                                     fontSize={120}
@@ -54,13 +54,13 @@ class Modal extends Component {
                                     }
                                     addBlur={true}
                                     addNoise={true}
-                                    fill="black"
+                                    fill="white"
                                     paddingLeft={20}
                                     paddingRight={20}
                                     paddingTop={20}
                                     paddingBottom={20}
                                 >
-                                </SplitColorChannelText>
+                                </DistortionText>
                                 A name of Sanskrit origin meaning Man of Wisdom, Respect & Knowledge
                         </React.Fragment>
                         }
