@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SplitColorChannelText, DistortionText } from 'react-text-fun';
+import { DistortionText } from 'react-text-fun';
 
 class Modal extends Component {
 
@@ -48,7 +48,7 @@ class Modal extends Component {
                                     text="Vivek*"
                                     // fontFamily= "HK"
                                     fontSize={120}
-                                    rotation={this.state.y / 10}
+                                    rotation={this.state.y / 15}
                                     rgbOffset={
                                         xVal
                                     }
